@@ -43,11 +43,13 @@ func DaysBetween(t1, t2 time.Time) (days int) {
 // N天以后的自然天的起始时间
 func DaysAfter(tm time.Time, n int) (ret time.Time) {
 	t := today(tm)
-	return t.Add(time.Duration(n) * time.Duration(86400))
+	return time.Unix(t.Unix()+int64(86400*n), 0)
+	//return t.Add(time.Duration(n) * time.Duration(86400) * time.Second)
 }
 
 // N天之前的自然天的起始时间
 func DaysBefore(tm time.Time, n int) (ret time.Time) {
 	t := today(tm)
-	return t.Add(time.Duration(-n) * time.Duration(86400))
+	return time.Unix(t.Unix()-int64(86400*n), 0)
+	//return t.Add(time.Duration(-n) * time.Duration(86400) * time.Second)
 }

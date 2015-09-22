@@ -144,3 +144,22 @@ func TestDaysBetween(t *testing.T) {
 		}
 	}
 }
+
+func TestDaysAfter(t *testing.T) {
+	ret := time.Date(2015, time.Month(9), 23, 0, 0, 0, 0, time.Local)
+	for idx, tm := range tms {
+		if DaysAfter(tm, 1) != ret {
+			t.Logf("Before time %v 1 days should be %v, but %v, index %d\n", tm, ret, DaysAfter(tm, 1), idx)
+			t.Fail()
+		}
+	}
+}
+func TestDaysBefore(t *testing.T) {
+	ret := time.Date(2015, time.Month(9), 21, 0, 0, 0, 0, time.Local)
+	for idx, tm := range tms {
+		if DaysBefore(tm, 1) != ret {
+			t.Logf("Before time %v 1 days should be %v, but %v, index %d\n", tm, ret, DaysBefore(tm, 1), idx)
+			t.Fail()
+		}
+	}
+}
