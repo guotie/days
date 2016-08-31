@@ -23,3 +23,10 @@
 ## DaysBefore(tm time.Time, n int) time.Time
 
 计算距离tm以前n天的自然天的00:00:00的时间
+
+
+# timer
+
+    func StartTimer(n, m int64, fn func(args ...interface{}) error, args ...interface{}) *time.Timer
+	
+	n, m 为毫秒数
