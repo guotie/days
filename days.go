@@ -14,8 +14,9 @@ func Yesterday(tm time.Time) (ret time.Time) {
 	return Before(tm, 1)
 }
 
+// today 今天开始的时间，当前时区
 func today(tm time.Time) time.Time {
-	return time.Date(tm.Year(), tm.Month(), tm.Day(), tm.Hour(), tm.Minute(), tm.Second(), 0, tm.Location())
+	return time.Date(tm.Year(), tm.Month(), tm.Day(), 0, 0, 0, 0, tm.Location())
 }
 
 // Today 返回本自然天的开始时间
@@ -23,7 +24,7 @@ func Today() (ret time.Time) {
 	return today(time.Now())
 }
 
-// Days 两个时间之间的自然天差值
+// Days 自从1970-1-1到tm的天数
 func Days(tm time.Time) int {
 	_, offset := tm.Zone()
 	return int((tm.Unix() + int64(offset)) / int64(86400))
