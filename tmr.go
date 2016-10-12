@@ -44,10 +44,12 @@ func StartTimer(n, m int64, fn func(args ...interface{}) error, args ...interfac
 		for {
 			// 修复时间偏差
 			// 仅限小时定时和天定时
-			seconds := m
+			seconds := m / 1000
 			now := time.Now()
 			today := Today()
-			switch m {
+			switch seconds {
+			case 60:
+				seconds -= now.Unix() % 60
 			case 3600:
 				seconds -= now.Unix() % 3600
 			case 86400:
@@ -55,7 +57,7 @@ func StartTimer(n, m int64, fn func(args ...interface{}) error, args ...interfac
 			}
 
 			// 重置定时器
-			tmr.Reset(time.Duration(m) * time.Millisecond)
+			tmr.Reset(time.Duration(seconds*1000) * time.Millisecond)
 			if doTimer() == true {
 				return
 			}
