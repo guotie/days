@@ -163,3 +163,35 @@ func TestDaysBefore(t *testing.T) {
 		}
 	}
 }
+
+func TestMonthBefore(t *testing.T) {
+	var (
+		tm  = time.Date(2016, 2, 17, 15, 1, 0, 0, time.Local)
+		tms = []struct {
+			n        int
+			expectTm time.Time
+		}{
+			{0, time.Date(2016, 2, 1, 0, 0, 0, 0, time.Local)},
+			{1, time.Date(2016, 1, 1, 0, 0, 0, 0, time.Local)},
+			{2, time.Date(2015, 12, 1, 0, 0, 0, 0, time.Local)},
+			{3, time.Date(2015, 11, 1, 0, 0, 0, 0, time.Local)},
+			{4, time.Date(2015, 10, 1, 0, 0, 0, 0, time.Local)},
+			{5, time.Date(2015, 9, 1, 0, 0, 0, 0, time.Local)},
+			{6, time.Date(2015, 8, 1, 0, 0, 0, 0, time.Local)},
+			{7, time.Date(2015, 7, 1, 0, 0, 0, 0, time.Local)},
+			{8, time.Date(2015, 6, 1, 0, 0, 0, 0, time.Local)},
+			{9, time.Date(2015, 5, 1, 0, 0, 0, 0, time.Local)},
+			{10, time.Date(2015, 4, 1, 0, 0, 0, 0, time.Local)},
+			{11, time.Date(2015, 3, 1, 0, 0, 0, 0, time.Local)},
+			{12, time.Date(2015, 2, 1, 0, 0, 0, 0, time.Local)},
+			{13, time.Date(2015, 1, 1, 0, 0, 0, 0, time.Local)},
+			{14, time.Date(2014, 12, 1, 0, 0, 0, 0, time.Local)},
+		}
+	)
+
+	for _, tt := range tms {
+		if MonthBefore(tm, tt.n) != tt.expectTm {
+			t.Fail()
+		}
+	}
+}

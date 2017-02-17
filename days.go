@@ -4,6 +4,28 @@ import (
 	"time"
 )
 
+// ThisMonth 与tm相同的本月开始时间
+func ThisMonth(tm time.Time) time.Time {
+	return time.Date(tm.Year(), tm.Month(), 1, 0, 0, 0, 0, tm.Location())
+}
+
+// MonthBefore n个月前的那个月的开始时间
+func MonthBefore(tm time.Time, n int) time.Time {
+	// 本月
+	//m := time.Date(tm.Year(), tm.Month(), 1, 0, 0, 0, 0, tm.Location())
+	month := tm.Year()*12 + int(tm.Month()) - 1 - n
+	return time.Date(month/12, time.Month(month%12+1), 1, 0, 0, 0, 0, tm.Location())
+}
+
+// YearBefore n年前
+func YearBefore(tm time.Time, n int, yearStart bool) time.Time {
+	if yearStart {
+		return time.Date(tm.Year()-n, 1, 1, 0, 0, 0, 0, tm.Location())
+	}
+	return time.Date(tm.Year()-n, tm.Month(), tm.Day(),
+		tm.Hour(), tm.Minute(), tm.Second(), tm.Nanosecond(), tm.Location())
+}
+
 // Tomorrow 比当前时间晚1个自然天的自然天的开始时间
 func Tomorrow(tm time.Time) (ret time.Time) {
 	return After(tm, 1)
